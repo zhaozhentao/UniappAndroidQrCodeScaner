@@ -22,7 +22,7 @@ public class HuaweiScanModule extends UniModule {
     private UniJSCallback callback;
 
     @UniJSMethod
-    public void regisResultHandler(JSONObject options, UniJSCallback callback) {
+    public void registerResultHandler(JSONObject options, UniJSCallback callback) {
         // 不保留之前的 callback
         if (this.callback != null) {
             this.callback.invoke(result("unRegister", null));
