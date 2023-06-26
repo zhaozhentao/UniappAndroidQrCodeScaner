@@ -52,7 +52,7 @@ module.scanForMulti()
 
 5. 注销接收结果处理器
 
-  页面关闭，或者不再需要扫码时，需要注销处理器。
+　页面关闭，不再需要扫码时，需要注销处理器。
   
 ```javascript
 module.unRegisterResultHandler()
