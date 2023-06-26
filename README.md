@@ -12,35 +12,34 @@
 ```javascript
 const module = uni.requireNativePlugin("HuaweiScanModule")
 ```
-2. init
+2. 注册接收结果处理器
 
 只需要初始化一次。
 
 ```javascript
-				module.regisResultHandler(
-					null,
-					ret => {
-                        let { action, data } = ret
+module.registerResultHandler(
+  null,
+  ret => {
+    let {action, data} = ret
 
-                        switch (action) {
-                            case 'scan_for_single':
-                                this.result = data
-                                break
-                            case 'scan_for_multi':
-                                this.result = data
-                                break
-                            case 'register':
-                                // register success
-                                modal.toast({ message: '注册成功', duration: 1.5 })
-                                break
-                            case 'unRegister':
-                                // unRegister success
-                                modal.toast({ message: '注销成功', duration: 1.5 })
-                                break
-						}
-					}
-                )
-
+    switch (action) {
+      case 'scan_for_single':
+        this.result = data
+        break
+      case 'scan_for_multi':
+        this.result = data
+        break
+      case 'register':
+        // register success
+        modal.toast({message: '注册成功', duration: 1.5})
+        break
+      case 'unRegister':
+        // unRegister success
+        modal.toast({message: '注销成功', duration: 1.5})
+        break
+    }
+  }
+)
 ```
 
 蓝牙状态发生变化时回调，message 可能的值如下。
@@ -103,7 +102,7 @@ export default {
   },
   methods: {
     registerResultHandler() {
-      module.regisResultHandler(
+      module.registerResultHandler(
         null,
         ret => {
           let {action, data} = ret
