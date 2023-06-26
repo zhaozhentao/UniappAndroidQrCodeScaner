@@ -14,7 +14,7 @@ const module = uni.requireNativePlugin("HuaweiScanModule")
 ```
 2. 注册接收结果处理器
 
-只需要初始化一次。
+`action` 可能的取值如下。
 
 ```javascript
 module.registerResultHandler(
