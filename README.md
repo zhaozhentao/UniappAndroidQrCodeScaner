@@ -42,27 +42,14 @@ module.registerResultHandler(
 )
 ```
 
-蓝牙状态发生变化时回调，message 可能的值如下。
-
-| message |
-| ---- |
-| 蓝牙状态未知 |
-| 蓝牙重置中 |
-| 没有蓝牙权限 |
-| 蓝牙关闭 |
-| 不支持蓝牙 |
-| 蓝牙开启 | 
-
-3. scan
+3. 全屏扫描
 ```javascript
-bluetoothModule.scan({}, ret => {
-  let { name, deviceId } = ret    // your bluetooth data
-})
+module.scanForSingle()
 ```
 
-4. stopScan
+4. 半屏扫描
 ```javascript
-bluetoothModule.stop({})
+module.scanForMulti()
 ```
 ### Demo
 
