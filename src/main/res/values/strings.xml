@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">华为二维码扫码插件</string>
+    <string name="preview">二维码扫描区域</string>
+</resources>
