@@ -16,8 +16,6 @@ import com.huawei.hms.ml.scan.HmsScan;
 
 import java.util.ArrayList;
 
-import minix.R;
-
 public class ScanActivity extends Activity {
 
     public static final ArrayList<String> codes = new ArrayList<>();

@@ -9,9 +9,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import minix.R;
-
-
 public class ResultAdapter extends BaseAdapter {
 
     private final ArrayList<String> list;
