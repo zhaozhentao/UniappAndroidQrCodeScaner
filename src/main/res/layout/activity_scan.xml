@@ -39,7 +39,7 @@
         android:layout_height="200dp"
         android:layout_centerInParent="true"
         android:contentDescription="@string/preview"
-        android:src="@drawable/cloors" />
+        android:src="@drawable/scan_frame" />
     </RelativeLayout>
 
     <LinearLayout

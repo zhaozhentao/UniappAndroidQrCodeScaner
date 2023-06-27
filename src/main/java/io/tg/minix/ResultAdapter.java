@@ -40,26 +40,42 @@ public class ResultAdapter extends BaseAdapter {
 
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.item_result, viewGroup, false);
-            convertView.setTag(holder = new Holder(convertView));
+            convertView.setTag(holder = new Holder(this, convertView, list));
         } else {
             holder = (Holder) convertView.getTag();
         }
 
-        holder.refresh(list.get(i));
+        holder.refresh(i);
 
         return convertView;
     }
 
-    public static class Holder {
+    public static class Holder implements View.OnClickListener {
 
         private final TextView content;
 
-        public Holder(View root) {
-            content = (TextView) root;
+        private final ResultAdapter resultAdapter;
+
+        private final ArrayList<String> list;
+
+        private int currentIdx;
+
+        public Holder(ResultAdapter adapter, View root, ArrayList<String> list) {
+            this.resultAdapter = adapter;
+            this.list = list;
+            this.content = root.findViewById(R.id.content);
+            root.findViewById(R.id.delete).setOnClickListener(this);
         }
 
-        public void refresh(String s) {
-            content.setText(s);
+        public void refresh(int i) {
+            currentIdx = i;
+            content.setText(list.get(i));
+        }
+
+        @Override
+        public void onClick(View view) {
+            list.remove(currentIdx);
+            resultAdapter.notifyDataSetChanged();
         }
     }
 }

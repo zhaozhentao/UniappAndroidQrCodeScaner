@@ -2,7 +2,6 @@ package io.tg.minix;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 
 import com.alibaba.fastjson.JSONObject;
 import com.huawei.hms.hmsscankit.ScanUtil;
