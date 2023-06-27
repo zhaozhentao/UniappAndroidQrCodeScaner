@@ -31,21 +31,29 @@ public class ScanActivity extends Activity {
 
         codes.clear();
 
-        int statusBarHeight = initStatusBar();
+        int statusBarHeight = Helper.getStatusBar(this);
+
+        findViewById(R.id.status_bar)
+            .setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT, statusBarHeight));
+
+        int navigationBarHeight = Helper.getNavigationBarHeight(this);
 
         //1. Obtain the screen density to calculate the viewfinder's rectangle.
         DisplayMetrics dm = getResources().getDisplayMetrics();
         float density = dm.density;
 
         //2. Obtain the screen size.
-        int mScreenWidth = getResources().getDisplayMetrics().widthPixels;
         int SCAN_FRAME_SIZE = 200;
+        int widthPixels = dm.widthPixels;
+        int heightPixels = dm.heightPixels;
         int scanFrameSize = (int) (SCAN_FRAME_SIZE * density);
+        // 相机view的高度
+        int remoteViewHeight = heightPixels - navigationBarHeight;
 
         Rect rect = new Rect();
-        rect.left = mScreenWidth / 2 - scanFrameSize / 2;
-        rect.right = mScreenWidth / 2 + scanFrameSize / 2;
-        rect.top = (int) (0 + (300 - SCAN_FRAME_SIZE) * density) + statusBarHeight;
+        rect.left = widthPixels / 2 - scanFrameSize / 2;
+        rect.right = widthPixels / 2 + scanFrameSize / 2;
+        rect.top = remoteViewHeight / 2 - scanFrameSize / 2;
         rect.bottom = rect.top + scanFrameSize;
 
         //Initialize the RemoteView instance, and set callback for the scanning result.
@@ -55,6 +63,12 @@ public class ScanActivity extends Activity {
             .setBoundingBox(rect)
             .setFormat(HmsScan.ALL_SCAN_TYPE)
             .build();
+
+        // 扫描框中点 300dp / 2 + statusBarHeight
+        int scanAreaMiddleY = (int) (300 * density / 2) + statusBarHeight;
+        int dy = remoteViewHeight / 2 - scanAreaMiddleY;
+        // 移动 remoteView 使 remoteView 中心与扫描框中心相等
+        remoteView.setTranslationY(-dy);
 
         // Subscribe to the scanning result callback event.
         remoteView.setOnResultCallback(result -> {
@@ -83,19 +97,6 @@ public class ScanActivity extends Activity {
             setResult(RESULT_OK);
             finish();
         });
-    }
-
-    public int initStatusBar() {
-        int statusBarHeight = 0;
-        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-
-        if (resourceId > 0) {
-            statusBarHeight = getResources().getDimensionPixelSize(resourceId);
-        }
-
-        findViewById(R.id.status_bar).setLayoutParams(new LinearLayout.LayoutParams(MATCH_PARENT, statusBarHeight));
-
-        return statusBarHeight;
     }
 
     @Override
