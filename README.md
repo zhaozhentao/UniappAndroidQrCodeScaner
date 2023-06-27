@@ -85,7 +85,7 @@ module.unRegisterResultHandler()
 
 <script>
 // 获取 module
-const module = uni.requireNativePlugin("HuaweiScanModule")
+const module = uni.requireNativePlugin("HuaweiScanModule-HuaweiScanModule")
 const modal = uni.requireNativePlugin('modal')
 
 export default {
