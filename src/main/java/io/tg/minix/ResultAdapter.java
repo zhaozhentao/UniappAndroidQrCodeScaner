@@ -1,6 +1,8 @@
 package io.tg.minix;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,8 +76,14 @@ public class ResultAdapter extends BaseAdapter {
 
         @Override
         public void onClick(View view) {
-            list.remove(currentIdx);
-            resultAdapter.notifyDataSetChanged();
+            new AlertDialog.Builder(view.getContext())
+                .setMessage("确定要删除吗?")
+                .setPositiveButton("确定", (dialogInterface, i) -> {
+                    list.remove(currentIdx);
+                    resultAdapter.notifyDataSetChanged();
+                })
+                .setNegativeButton("取消", null)
+                .show();
         }
     }
 }
