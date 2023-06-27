@@ -136,4 +136,5 @@ export default {
 
 ### ScreenShot
 
-![file](./screenshot/screenshot.jpg)
+<img src="https://github.com/zhaozhentao/UniappAndroidQrCodeScaner/blob/main/screenshot/screenshot.jpg?raw=true" style="height: 600px;" />
+
