@@ -10,7 +10,7 @@
 
 1. import
 ```javascript
-const module = uni.requireNativePlugin("HuaweiScanModule")
+const module = uni.requireNativePlugin("HuaweiScanModule-HuaweiScanModule")
 ```
 2. 注册接收结果处理器，`action` 可能的取值如下。
 
