@@ -4,7 +4,7 @@
 
 导入插件参考: [官网](https://nativesupport.dcloud.net.cn/NativePlugin/use/use_local_plugin.html)
 
-插件下载: [download](https://github.com/zhaozhentao/UniappAndroidQrCodeScaner/releases/download/1.0.1/HuaweiScanModule.zip)
+插件下载: [download](https://github.com/zhaozhentao/UniappAndroidQrCodeScaner/releases/download/1.0.0/HuaweiScanModule.zip)
 
 ### Usage
 
