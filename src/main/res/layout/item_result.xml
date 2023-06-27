@@ -17,9 +17,10 @@
 
   <ImageView
     android:id="@+id/delete"
-    android:layout_width="48dp"
-    android:layout_height="48dp"
+    android:layout_width="36dp"
+    android:layout_height="36dp"
+    android:layout_marginEnd="12dp"
+    android:background="@drawable/delete_selector"
     android:contentDescription="@string/delete"
-    android:padding="12dp"
-    android:src="@drawable/delete" />
+    android:src="@drawable/delete_selector" />
 </LinearLayout>
