@@ -1,6 +1,7 @@
-package io.tg.minix;
+package io.tg.minix.activities;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+import static io.tg.minix.data.DataManager.codes;
 
 import android.app.Activity;
 import android.graphics.Rect;
@@ -14,15 +15,16 @@ import android.widget.ListView;
 import com.huawei.hms.hmsscankit.RemoteView;
 import com.huawei.hms.ml.scan.HmsScan;
 
-import java.util.ArrayList;
+import io.tg.minix.R;
+import io.tg.minix.adapters.ResultAdapter;
+import io.tg.minix.helper.Helper;
+import io.tg.minix.modules.HuaweiScanModule;
 
 public class ScanActivity extends Activity {
 
-    public static final ArrayList<String> codes = new ArrayList<>();
-
     private RemoteView remoteView;
 
-    private ResultAdapter adapter;
+    public static ResultAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,6 @@ public class ScanActivity extends Activity {
         int widthPixels = dm.widthPixels;
         int heightPixels = dm.heightPixels;
         int scanFrameSize = (int) (SCAN_FRAME_SIZE * density);
-        // 相机view的高度
         int remoteViewHeight = heightPixels - navigationBarHeight;
 
         Rect rect = new Rect();
@@ -64,10 +65,10 @@ public class ScanActivity extends Activity {
             .setFormat(HmsScan.ALL_SCAN_TYPE)
             .build();
 
-        // 扫描框中点 300dp / 2 + statusBarHeight
+        // centerY of scanner's frame equals 300dp / 2 + statusBarHeight
         int scanAreaMiddleY = (int) (300 * density / 2) + statusBarHeight;
         int dy = remoteViewHeight / 2 - scanAreaMiddleY;
-        // 移动 remoteView 使 remoteView 中心与扫描框中心相等
+        // let remoteView's center equals to scan frame's
         remoteView.setTranslationY(-dy);
 
         // Subscribe to the scanning result callback event.
@@ -75,11 +76,13 @@ public class ScanActivity extends Activity {
             //Check the result.
             boolean getResult = result != null && result.length > 0 && result[0] != null && !TextUtils.isEmpty(result[0].getOriginalValue());
 
-            if (!getResult || codes.contains(result[0].showResult)) return;
+            if (!getResult) return;
 
-            codes.add(result[0].showResult);
+            boolean exits = codes.stream().anyMatch(i -> i.sn.equals(result[0].showResult));
 
-            adapter.notifyDataSetChanged();
+            if (exits) return;
+
+            HuaweiScanModule.invoke("code", result[0].showResult);
         });
 
         // Load the customized view to the activity.
@@ -121,6 +124,7 @@ public class ScanActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         remoteView.onDestroy();
+        adapter = null;
     }
 
     @Override

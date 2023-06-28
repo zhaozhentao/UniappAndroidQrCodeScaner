@@ -4,7 +4,7 @@
   <application>
 
     <activity
-      android:name="io.tg.minix.ScanActivity"
+      android:name="io.tg.minix.activities.ScanActivity"
       android:theme="@style/AppTheme" />
   </application>
 </manifest>

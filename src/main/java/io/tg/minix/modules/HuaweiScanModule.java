@@ -1,4 +1,6 @@
-package io.tg.minix;
+package io.tg.minix.modules;
+
+import static io.tg.minix.data.DataManager.codes;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,33 +13,35 @@ import com.huawei.hms.ml.scan.HmsScanAnalyzerOptions;
 import io.dcloud.feature.uniapp.annotation.UniJSMethod;
 import io.dcloud.feature.uniapp.bridge.UniJSCallback;
 import io.dcloud.feature.uniapp.common.UniModule;
+import io.tg.minix.data.Record;
+import io.tg.minix.activities.ScanActivity;
 
 public class HuaweiScanModule extends UniModule {
+
+    private static UniJSCallback callback;
 
     public static int REQUEST_SINGLE = 1000;
 
     public static int REQUEST_MULTI = 2000;
 
-    private UniJSCallback callback;
-
     @UniJSMethod
     public void registerResultHandler(JSONObject options, UniJSCallback callback) {
         // 不保留之前的 callback
-        if (this.callback != null) {
-            this.callback.invoke(result("unRegister", null));
+        if (HuaweiScanModule.callback != null) {
+            HuaweiScanModule.callback.invoke(result("unRegister", null));
         }
 
         if (callback != null) {
-            this.callback = callback;
+            HuaweiScanModule.callback = callback;
             callback.invokeAndKeepAlive(result("register", null));
         }
     }
 
     @UniJSMethod
     public void unRegisterResultHandler(JSONObject options, UniJSCallback callback) {
-        if (this.callback != null) {
-            this.callback.invoke(result("unRegister", null));
-            this.callback = null;
+        if (HuaweiScanModule.callback != null) {
+            HuaweiScanModule.callback.invoke(result("unRegister", null));
+            HuaweiScanModule.callback = null;
         }
     }
 
@@ -60,7 +64,22 @@ public class HuaweiScanModule extends UniModule {
         );
     }
 
-    private JSONObject result(String action, Object data) {
+    @UniJSMethod
+    public void addRecord(JSONObject options, UniJSCallback callback) {
+        Record record = new Record(options.getString("sn"), options.getString("code"));
+
+        codes.add(record);
+
+        if (ScanActivity.adapter != null) {
+            ScanActivity.adapter.notifyDataSetChanged();
+        }
+    }
+
+    public static void invoke(String action, Object data) {
+        callback.invokeAndKeepAlive(result(action, data));
+    }
+
+    private static JSONObject result(String action, Object data) {
         JSONObject result = new JSONObject();
 
         result.put("action", action);
@@ -82,7 +101,7 @@ public class HuaweiScanModule extends UniModule {
             HmsScan result = data.getParcelableExtra(ScanUtil.RESULT);
             callback.invokeAndKeepAlive(result("scan_for_single", result.showResult));
         } else if (requestCode == REQUEST_MULTI) {
-            callback.invokeAndKeepAlive(result("scan_for_multi", ScanActivity.codes));
+            callback.invokeAndKeepAlive(result("scan_for_multi", codes));
         }
     }
 }

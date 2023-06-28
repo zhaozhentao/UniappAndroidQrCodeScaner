@@ -1,4 +1,4 @@
-package io.tg.minix;
+package io.tg.minix.adapters;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -10,12 +10,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import io.tg.minix.R;
+import io.tg.minix.data.Record;
+
 public class ResultAdapter extends BaseAdapter {
 
-    private final ArrayList<String> list;
+    private final ArrayList<Record> list;
     private final LayoutInflater layoutInflater;
 
-    public ResultAdapter(Activity activity, ArrayList<String> list) {
+    public ResultAdapter(Activity activity, ArrayList<Record> list) {
         this.list = list;
         this.layoutInflater = activity.getLayoutInflater();
     }
@@ -57,11 +60,11 @@ public class ResultAdapter extends BaseAdapter {
 
         private final ResultAdapter resultAdapter;
 
-        private final ArrayList<String> list;
+        private final ArrayList<Record> list;
 
         private int currentIdx;
 
-        public Holder(ResultAdapter adapter, View root, ArrayList<String> list) {
+        public Holder(ResultAdapter adapter, View root, ArrayList<Record> list) {
             this.resultAdapter = adapter;
             this.list = list;
             this.content = root.findViewById(R.id.content);
@@ -70,7 +73,7 @@ public class ResultAdapter extends BaseAdapter {
 
         public void refresh(int i) {
             currentIdx = i;
-            content.setText(list.get(i));
+            content.setText(list.get(i).sn);
         }
 
         @Override

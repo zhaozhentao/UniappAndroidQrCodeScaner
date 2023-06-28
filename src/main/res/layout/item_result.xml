@@ -13,12 +13,13 @@
     android:layout_weight="1"
     android:padding="12dp"
     android:textSize="18sp"
-    tools:text="haha" />
+    tools:text="Tesla Model S\nTesla Model 3\nTesla Model X\nTesla Model Y" />
 
   <ImageView
     android:id="@+id/delete"
     android:layout_width="36dp"
     android:layout_height="36dp"
+    android:layout_marginStart="12dp"
     android:layout_marginEnd="12dp"
     android:background="@drawable/delete_selector"
     android:contentDescription="@string/delete"
