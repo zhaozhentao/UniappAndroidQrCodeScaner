@@ -36,7 +36,7 @@ module.registerResultHandler(
         modal.toast({message: '注销成功', duration: 1.5})
         break
       case 'code':
-        // 半屏扫码中每个扫描到的 code 在这里获取
+        // 半屏扫码中每个扫描到的 code 在这里获取，通过 addRecord 通知扫码页面添加记录
         module.addRecord({sn: data, code: "ignore"})
         break
     }
@@ -51,7 +51,7 @@ module.scanForSingle()
 
 4. 半屏扫描
 
-参数格式传入格式 [{sn: 'xx', code: 'yy'}]，没有数据时传入 []
+　　参数格式传入格式 [{sn: 'xx', code: 'yy'}]，没有数据时传入 []
 
 ```javascript
 module.scanForMulti([{sn: "sn", "code": "ignore"}])
