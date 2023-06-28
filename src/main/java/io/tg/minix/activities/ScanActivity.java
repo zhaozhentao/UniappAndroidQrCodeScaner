@@ -31,8 +31,6 @@ public class ScanActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan);
 
-        codes.clear();
-
         int statusBarHeight = Helper.getStatusBar(this);
 
         findViewById(R.id.status_bar)

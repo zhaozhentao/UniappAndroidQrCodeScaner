@@ -5,6 +5,7 @@ import static io.tg.minix.data.DataManager.codes;
 import android.app.Activity;
 import android.content.Intent;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huawei.hms.hmsscankit.ScanUtil;
 import com.huawei.hms.ml.scan.HmsScan;
@@ -57,7 +58,19 @@ public class HuaweiScanModule extends UniModule {
     }
 
     @UniJSMethod
-    public void scanForMulti() {
+    public void scanForMulti(JSONArray array) {
+        codes.clear();
+
+        if (array.size() != 0) {
+            for (int i = 0; i < array.size(); i++) {
+                JSONObject obj = array.getJSONObject(i);
+
+                Record record = new Record(obj.getString("sn"), obj.getString("code"));
+
+                codes.add(record);
+            }
+        }
+
         ((Activity) mUniSDKInstance.getContext()).startActivityForResult(
             new Intent(mUniSDKInstance.getContext(), ScanActivity.class),
             REQUEST_MULTI
