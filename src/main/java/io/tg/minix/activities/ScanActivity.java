@@ -4,8 +4,10 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static io.tg.minix.data.DataManager.codes;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.widget.FrameLayout;
@@ -81,6 +83,12 @@ public class ScanActivity extends Activity {
             if (exits) return;
 
             HuaweiScanModule.invoke("code", result[0].showResult);
+
+            Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            if (vibrator.hasVibrator()) {
+                long[] pattern = {0, 50};
+                vibrator.vibrate(pattern, -1);
+            }
         });
 
         // Load the customized view to the activity.
