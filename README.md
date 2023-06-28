@@ -35,6 +35,10 @@ module.registerResultHandler(
         // unRegister success
         modal.toast({message: '注销成功', duration: 1.5})
         break
+      case 'code':
+        // 半屏扫码中每个扫描到的 code 在这里获取
+        module.addRecord({sn: data, code: "ignore"})
+        break
     }
   }
 )
@@ -46,8 +50,11 @@ module.scanForSingle()
 ```
 
 4. 半屏扫描
+
+参数格式传入格式 [{sn: 'xx', code: 'yy'}]，没有数据时传入 []
+
 ```javascript
-module.scanForMulti()
+module.scanForMulti([{sn: "sn", "code": "ignore"}])
 ```
 
 5. 注销接收结果处理器
@@ -116,6 +123,9 @@ export default {
               // unRegister success
               modal.toast({message: '注销成功', duration: 1.5})
               break
+            case 'code':
+              module.addRecord({sn: data, code: "ignore"})
+              break
           }
         }
       )
@@ -127,7 +137,7 @@ export default {
       module.scanForSingle()
     },
     scanForMulti() {
-      module.scanForMulti()
+      module.scanForMulti([{sn: "sn", "code": "ignore"}])
     }
   }
 }
