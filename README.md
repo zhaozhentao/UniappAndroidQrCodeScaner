@@ -39,6 +39,9 @@ module.registerResultHandler(
         // 半屏扫码中每个扫描到的 code 在这里获取，通过 addRecord 通知扫码页面添加记录
         module.addRecord({sn: data, code: "ignore"})
         break
+      case 'delete':
+        // 半屏扫码删除一个记录会触发这个回调，sn 在 data 中 
+        break
     }
   }
 )
@@ -125,6 +128,9 @@ export default {
               break
             case 'code':
               module.addRecord({sn: data, code: "ignore"})
+              break
+            case 'delete':
+              // 半屏扫码删除一个记录会触发这个回调，sn 在 data 中 
               break
           }
         }
