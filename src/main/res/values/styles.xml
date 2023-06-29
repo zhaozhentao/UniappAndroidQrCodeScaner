@@ -2,5 +2,6 @@
 
   <style name="AppTheme" parent="@android:style/Theme.DeviceDefault.Light.NoActionBar">
     <item name="android:windowTranslucentStatus">true</item>
+    <item name="android:statusBarColor">@android:color/transparent</item>
   </style>
 </resources>
