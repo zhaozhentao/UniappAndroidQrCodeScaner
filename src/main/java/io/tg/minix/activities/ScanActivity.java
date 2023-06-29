@@ -78,11 +78,13 @@ public class ScanActivity extends Activity {
 
             if (!getResult) return;
 
-            boolean exits = codes.stream().anyMatch(i -> i.sn.equals(result[0].showResult));
+            String code = result[0].showResult.replaceAll("[\\r\\n]", "");
+
+            boolean exits = codes.stream().anyMatch(i -> i.sn.equals(code));
 
             if (exits) return;
 
-            HuaweiScanModule.invoke("code", result[0].showResult);
+            HuaweiScanModule.invoke("code", code);
 
             Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
             if (vibrator.hasVibrator()) {

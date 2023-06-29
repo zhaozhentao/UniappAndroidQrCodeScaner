@@ -4,6 +4,8 @@ import static io.tg.minix.data.DataManager.codes;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -89,6 +91,10 @@ public class HuaweiScanModule extends UniModule {
     }
 
     public static void invoke(String action, Object data) {
+        if (callback == null) {
+            Log.e("异常", "未注册处理器");
+            return;
+        }
         callback.invokeAndKeepAlive(result(action, data));
     }
 
