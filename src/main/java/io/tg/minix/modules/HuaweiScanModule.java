@@ -5,7 +5,6 @@ import static io.tg.minix.data.DataManager.codes;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -16,8 +15,8 @@ import com.huawei.hms.ml.scan.HmsScanAnalyzerOptions;
 import io.dcloud.feature.uniapp.annotation.UniJSMethod;
 import io.dcloud.feature.uniapp.bridge.UniJSCallback;
 import io.dcloud.feature.uniapp.common.UniModule;
-import io.tg.minix.data.Record;
 import io.tg.minix.activities.ScanActivity;
+import io.tg.minix.data.Record;
 
 public class HuaweiScanModule extends UniModule {
 
@@ -36,7 +35,7 @@ public class HuaweiScanModule extends UniModule {
 
         if (callback != null) {
             HuaweiScanModule.callback = callback;
-            callback.invokeAndKeepAlive(result("register", null));
+            invoke("register", null);
         }
     }
 

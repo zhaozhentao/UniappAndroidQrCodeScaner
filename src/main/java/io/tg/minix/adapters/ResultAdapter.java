@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import io.tg.minix.R;
 import io.tg.minix.data.Record;
+import io.tg.minix.modules.HuaweiScanModule;
 
 public class ResultAdapter extends BaseAdapter {
 
@@ -81,7 +82,9 @@ public class ResultAdapter extends BaseAdapter {
             new AlertDialog.Builder(view.getContext())
                 .setMessage("确定要删除吗?")
                 .setPositiveButton("确定", (dialogInterface, i) -> {
+                    String sn = list.get(currentIdx).sn;
                     list.remove(currentIdx);
+                    HuaweiScanModule.invoke("delete", sn);
                     resultAdapter.notifyDataSetChanged();
                 })
                 .setNegativeButton("取消", null)
